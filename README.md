@@ -6,6 +6,12 @@
 </a>
 </p>
 
+
+# Note (From John) 
+This is my attempt to fix some bugs in the original package as well as add some QoL improvements. I have not forked packages before, so please pardon any lack of etiquette/let me know how to improve.
+
+
+
 # Open Trade Statistics package <img src="svg/hexicon.svg" width=150 align="right" alt="sticker"/>
 
 [![Project Status: Active – The project has reached a stable, usable
@@ -52,3 +58,4 @@ Conduct](https://docs.ropensci.org/tradestatistics/CODE_OF_CONDUCT.html).
 By participating in this project you agree to abide by its terms.
 
 [![ropensci\_footer](https://ropensci.org/public_images/ropensci_footer.png)](https://ropensci.org)
+
