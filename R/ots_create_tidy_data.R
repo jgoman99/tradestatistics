@@ -186,7 +186,9 @@ ots_create_tidy_data_unmemoised <- function(years = 2018,
     tradestatistics::ots_commodities$commodity_code) == TRUE &
     table %in% commodities_depending_queries) {
 
+
     # commodities without match (wm)
+    # john_note: I think this is to enable a commodity list that mixes words and numbers
     commodities_wm <- commodities[!commodities %in%
       tradestatistics::ots_commodities$commodity_code]
 
@@ -200,22 +202,28 @@ ots_create_tidy_data_unmemoised <- function(years = 2018,
     # group name match (gnm)
     gnm <- lapply(
       seq_along(commodities_wm),
-      function(x) { tradestatistics::ots_commodity_code(group = commodities_wm[x]) }
+      # john_note: I think I see the bug. group should be section?
+      function(x) { tradestatistics::ots_commodity_code(section = commodities_wm[x]) }
     )
     gnm <- rbindlist(gnm)
 
     commodities_wm <- rbind(pnm, gnm, fill = TRUE)
-    commodities_wm <- unique(commodities_wm[nchar(commodity_code) == 4, .(commodity_code)])
-    commodities_wm <- as.vector(unlist(commodities_wm))
+    # john_note: also something going on here. 
+    #commodities_wm <- unique(commodities_wm[nchar(commodity_code) == 4, .(commodity_code)])
+    #commodities_wm <- as.vector(unlist(commodities_wm))
 
+    # new code
+    commodities_codes = unique(commodities_wm$commodity_code)
     commodities <- c(commodities[commodities %in%
-      tradestatistics::ots_commodities$commodity_code], commodities_wm)
+      tradestatistics::ots_commodities$commodity_code], commodities_codes)
     
     if(length(commodities) == 0) {
       commodities <- NA
     }
   }
 
+  # NA bandaid fix
+  commodities = commodities[!is.na(commodities)]
   if (!all(as.character(commodities) %in%
     tradestatistics::ots_commodities$commodity_code == TRUE) &
     table %in% commodities_depending_queries) {

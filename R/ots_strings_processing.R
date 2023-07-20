@@ -95,12 +95,13 @@ ots_commodity_code <- function(commodity = NULL, section = NULL) {
     section <- tolower(iconv(section, to = "ASCII//TRANSLIT", sub = ""))
     section <- gsub("[^[:alpha:]]", "", section)
     
+    
     if (section == "") {
       stop("The input results in an empty string after removing multiple spaces and special symbols. Please check the spelling or explore the commodities table provided within this package.")
     } else {
-      dg <- unique(tradestatistics::ots_commodities[, c("section_code", "section_fullname_english")])
-      
-      d <- dg[grepl(section, tolower(section_fullname_english))]
+      section <- tolower(iconv(section, to = "ASCII//TRANSLIT", sub = ""))
+      section <- gsub("[^[:alpha:]]", "", section)
+      d <- tradestatistics::ots_commodities[grepl(section, tolower(section_fullname_english))]
     }
   }
   
