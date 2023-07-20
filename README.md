@@ -14,8 +14,8 @@ This is my attempt to fix some bugs in the original package as well as add some 
 
 It looks like under group name match (gnm), commodity should be section.
 ```
-Error in tradestatistics::ots_commodity_code(commodity = commodities_wm[x]) :
-The input results in an empty string after removing multiple spaces and special symbols. Please check the spelling or explore the commodities table provided within this package.
+Error in tradestatistics::ots_commodity_code(group = commodities_wm[x]) : 
+  unused argument (group = commodities_wm[x])
 ```
 
 This led to another error in ots_strings_processing where it looks as though lookup for sections has not been implemented. I added a simple implementation in line with the commodities Code
